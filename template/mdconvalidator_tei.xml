@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"$if(lang)$ xml:lang="$lang$"$endif$>
+<teiHeader>
+  <fileDesc>
+    <titleStmt>
+      <title type="full">
+        <title type="main">$title$</title>
+$if(subtitle)$
+        <title type="sub">$subtitle$</title>
+$endif$
+      </title>
+$for(author)$
+      <author>
+        <persName>
+          <forename>$author.name.forename$</forename>
+          <surname>$author.name.surname$</surname>
+        </persName>
+        <affiliation>$author.affiliation$</affiliation>
+      </author>
+$endfor$
+    </titleStmt>
+    <publicationStmt>
+$if(publicationStmt)$
+      <p>$if(publicationStmt)$$publicationStmt$$endif$</p>
+$endif$
+$if(license)$
+      <availability><licence>$license$</licence></availability>
+$endif$
+$if(publisher)$
+      <publisher>$publisher$</publisher>
+$endif$
+$if(pubPlace)$
+      <pubPlace>$pubPlace$</pubPlace>
+$endif$
+$if(address)$
+      <address>$address$</address>
+$endif$
+$if(date)$
+      <date>$date$</date>
+$endif$
+    </publicationStmt>
+    <sourceDesc>
+      <p>Converted from a Markdown document.</p>
+    </sourceDesc>
+  </fileDesc>
+  <encodingDesc>
+    <appInfo>
+      <application ident="MDCONVALIDATOR" version="0.1">
+        <label>MDConvalidator</label>
+      </application>
+    </appInfo>
+  </encodingDesc>
+  <profileDesc>
+    <textClass>
+$if(category)$
+      <keywords scheme="ConfTool" n="category">
+$for(category)$
+        <term>$category$</term>
+$endfor$
+      </keywords>
+$endif$
+$if(subcategory)$
+      <keywords scheme="ConfTool" n="subcategory">
+$for(subcategory)$
+        <term>$subcategory$</term>
+$endfor$
+      </keywords>
+$endif$
+$if(keywords)$
+      <keywords scheme="ConfTool" n="keywords">
+$for(keywords)$
+        <term>$keywords$</term>
+$endfor$
+      </keywords>
+$endif$
+$if(topics)$
+      <keywords scheme="ConfTool" n="topics">
+$for(topics)$
+        <term>$topics$</term>
+$endfor$
+      </keywords>
+$endif$
+    </textClass>
+  </profileDesc>
+</teiHeader>
+<text>
+$for(include-before)$
+$include-before$
+$endfor$
+<body>
+$body$
+</body>
+$for(include-after)$
+$include-after$
+$endfor$
+</text>
+</TEI>
