@@ -1,0 +1,3 @@
+[submodule "csl"]
+	path = csl
+	url = https://github.com/computationalstylistics/DHAbstracts_biblio_style.git
