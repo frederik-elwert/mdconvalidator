@@ -53,6 +53,10 @@ class MDConvalidator:
         # Validate given formats
         for format_ in validate:
             self.validate(outfiles[format_], format_)
+        # Copy infile
+        # TODO: This uses different media paths than the extracted ones.
+        # Maybe we should revise media handling to keep original file names.
+        shutil.copy(self.infile, self.tempdir.name)
         # Pack as .dhc
         archive_tempdir = tempfile.TemporaryDirectory()
         archive_base = Path(archive_tempdir.name) / Path(self.outfile).stem
