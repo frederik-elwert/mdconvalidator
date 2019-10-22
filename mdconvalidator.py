@@ -14,6 +14,7 @@ from lxml import etree
 DATAPATH = Path('.')
 TEMPLATES = {
     'tei': DATAPATH / 'template' / 'mdconvalidator_tei.xml',
+    'html': DATAPATH / 'template' / 'mdconvalidator.html',
 }
 CSL = DATAPATH / 'csl' / 'digital_humanities_abstracts.csl'
 SCHEMAS = {
