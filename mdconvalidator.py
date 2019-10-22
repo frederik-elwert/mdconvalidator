@@ -64,12 +64,23 @@ class MDConvalidator:
     def convert(self, format_):
         # Use infile directory as base for image paths and other resources
         basedir = Path(self.infile).parent
+        # We want relative paths for the media.
+        # Hence, we have to pass a relative path to pandoc, and not a 
+        # child of self.tempdir.
+        # This means it creates the media folder inside the current directory.
+        # We make sure this does not override any existing directories.
+        mediadir = mediadirbase = 'Pictures'
+        mediadircounter = 1
+        while Path(mediadir).exists():
+            mediadir = f'{mediadirbase}{mediadircounter}'
+            mediadircounter += 1
         # Common pipeline
         pandoc_filters = [
             'pandoc-citeproc',
         ]
         pandoc_args = [
             '--standalone',
+            f'--extract-media={mediadir}',
             f'--csl={CSL}',
             f'--variable=publisher:"{PUBLISHER}"',
             f'--resource-path={basedir}',
@@ -87,6 +98,14 @@ class MDConvalidator:
                                        filters=pandoc_filters,
                                        outputfile=str(outfile))
         logging.info(f'Converted {self.infile} to {outfile}.')
+        # Move the media dir to tempdir.
+        if Path(mediadir).exists():
+            dst = Path(self.tempdir.name) / mediadir
+            # Check if dst exsits, might already be present from
+            # previous conversion.
+            if not dst.exists():
+                shutil.copytree(mediadir, dst)
+            shutil.rmtree(mediadir)
         return outfile
 
     def validate(self, file_, format_):
